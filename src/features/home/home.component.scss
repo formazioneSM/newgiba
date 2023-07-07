@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,600&family=Lato:ital@1&family=Roboto:wght@300&display=swap');
+
+body {
+    font-family: 'Kanit', sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+#header {
+    position: fixed;
+    overflow: none;
+
+    .dateNavigation {
+        position: fixed;
+        overflow: none;
+
+    }
+
+    .buttonTimesheet {
+        position: fixed;
+        overflow: none;
+    }
+}
+
+#containerNavigation {
+    overflow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

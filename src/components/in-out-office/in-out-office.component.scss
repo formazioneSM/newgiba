@@ -1,0 +1,29 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 10px 0px 10px;
+    gap: 5px 0px;
+    height: 7vh;
+
+    .title {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        margin: 0 !important;
+        margin-left: 20px !important;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+
+    .containerInput {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+}

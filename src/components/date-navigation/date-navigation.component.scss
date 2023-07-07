@@ -1,0 +1,147 @@
+#container {
+    margin-top: 12vh;
+
+    #containerCurrentMonth {
+        height: 6vh;
+        display: flex;
+        justify-content: space-around;
+        width: 95vw;
+
+        .previousMonth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1D3D90;
+            width: 26.59px;
+            height: 26.59px;
+            border-radius: 50%;
+            margin-top: 5px;
+
+            .chevronPrevious {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: rotate(180deg);
+                margin-right: 3px;
+                overflow-y: none;
+                cursor: pointer;
+
+                ::ng-deep svg {
+                    stroke: white;
+                    overflow-y: none;
+
+                }
+            }
+        }
+
+        .nextMonth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1D3D90;
+            width: 26.59px;
+            height: 26.59px;
+            border-radius: 50%;
+            margin-top: 5px;
+            cursor: pointer;
+
+            .chevronNext {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 3px;
+
+                ::ng-deep svg {
+                    stroke: white;
+                }
+            }
+        }
+
+        .containerMonthYear {
+            display: flex;
+            justify-content: center;
+            justify-content: space-around;
+            align-items: center;
+            height: 37px;
+            width: 116px;
+        }
+    }
+
+}
+
+@media screen and (min-width: 992px) {
+    #container {
+        margin-top: 12vh;
+
+        #containerCurrentMonth {
+            height: 6vh;
+            display: flex;
+            justify-content: space-around;
+            width: 97vw;
+
+            .previousMonth {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #1D3D90;
+                width: 36.59px;
+                height: 35.59px;
+                border-radius: 50%;
+                margin-top: 5px;
+
+                .chevronPrevious {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transform: rotate(180deg);
+                    margin-right: 3px;
+                    overflow-y: none;
+                    cursor: pointer;
+
+                    ::ng-deep svg {
+                        stroke: white;
+                        overflow-y: none;
+
+                    }
+                }
+            }
+
+            .nextMonth {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #1D3D90;
+                width: 36.59px;
+                height: 35.59px;
+                border-radius: 50%;
+                margin-top: 5px;
+                cursor: pointer;
+
+                .chevronNext {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 3px;
+
+                    ::ng-deep svg {
+                        stroke: white;
+                    }
+                }
+            }
+
+            .containerMonthYear {
+                display: flex;
+                justify-content: center;
+                justify-content: space-around;
+                align-items: center;
+                height: 37px;
+                width: 20vw;
+
+                .currentYear {
+                    font-size: 18px;
+                }
+            }
+        }
+
+    }
+}

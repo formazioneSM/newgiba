@@ -1,0 +1,125 @@
+#containerWrapping {
+    display: flex;
+    height: 99vh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    #container {
+        width: 95%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+
+        #containerHeader {
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+
+            >* {
+                display: flex;
+                align-items: center;
+            }
+
+            .addWrapper {
+                width: 62%;
+                display: flex;
+                justify-content: space-around;
+
+                #containerHoursDay {
+                    display: flex;
+                    flex-direction: column;
+                    z-index: 99;
+                    margin-top: 19px;
+
+                    .text {
+                        font-weight: bold;
+                        font-size: 16px;
+                    }
+
+                    .containerHours {
+                        z-index: 100;
+                        display: flex;
+                        color: #FF0000;
+                    }
+
+                }
+
+                .containerAddCommessa {
+                    display: flex;
+                    justify-content: space-around;
+                    background-color: transparent;
+                    border: transparent;
+                    gap: 0px 5px !important;
+                    color: #1D3D90;
+
+                    >* {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+
+        .mat-autocomplete ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--active) {
+            background-color: white !important;
+            border-radius: 20px !important;
+            border: 1px solid #1D3D90 !important;
+            height: 32.5px !important;
+            width: 90vw !important;
+            outline: none !important;
+
+        }
+
+        .mat-autocomplete ::ng-deep .mat-mdc-form-field-focus-overlay.ng-star-inserted {
+            opacity: 0 !important;
+            background: white;
+        }
+
+        .mat-autocomplete ::ng-deep .mdc-line-ripple::before {
+            position: none !important;
+            border-bottom-style: none !important;
+        }
+
+        .mat-autocomplete ::ng-deep .mdc-line-ripple::after {
+            position: none !important;
+            border-bottom-style: none !important;
+        }
+
+        .mat-autocomplete ::ng-deep .mat-mdc-input-element.mat-mdc-autocomplete-trigger.mat-mdc-form-field-input-control.mdc-text-field__input.ng-pristine.ng-valid.cdk-text-field-autofill-monitored.ng-touched {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mat-autocomplete ::ng-deep .mat-mdc-form-field-infix {
+            padding-bottom: 0 !important;
+            padding-top: 5px !important;
+            background-color: transparent;
+        }
+
+
+        .mat-autocomplete ::ng-deep .mdc-line-ripple.ng-star-inserted:before:after {
+            border-bottom: none !important;
+            border-bottom-style: none !important;
+            position: none !important;
+        }
+    }
+
+    .textCommessa {
+        padding: 0px 0px 6px 5px;
+    }
+
+    .button {
+        width: 90vw;
+    }
+
+    .button ::ng-deep .mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-button-base {
+        width: 90vw !important;
+    }
+}

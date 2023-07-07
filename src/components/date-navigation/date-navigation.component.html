@@ -1,0 +1,18 @@
+<div id="container">
+    <div id="containerCurrentMonth">
+        <div class="previousMonth">
+            <app-chevron class="chevronPrevious" (click)="previousMonth()">
+            </app-chevron>
+        </div>
+        <div class="containerMonthYear">
+            <app-menu (onClick)="selectedMonth($event)" [options]="getAllMonth()"
+                [selectedOption]="currentMonth.toUpperCase()">
+            </app-menu>
+            <div class="currentYear">{{currentYear}}</div>
+        </div>
+        <div class="nextMonth">
+            <app-chevron class="chevronNext" (click)="nextMonth()">
+            </app-chevron>
+        </div>
+    </div>
+</div>

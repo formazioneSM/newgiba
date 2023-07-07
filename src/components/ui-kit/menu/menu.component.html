@@ -1,0 +1,10 @@
+<button mat-button [matMenuTriggerFor]="menu" id="menu" (click)="toogleMenu()"
+    [ngClass]="click ? 'chevronDown' : 'chevron'">{{selectedOption}} <span>
+        <img class="chevron" src="../../../assets/images/chevron.svg" alt=""
+            [ngClass]="click ? 'chevronDown' : ''"></span>
+    <ng-scrollbar style="height: auto">
+        <mat-menu #menu="matMenu" (closed)="closedMenu()">
+            <button mat-menu-item *ngFor="let m of options" (click)="onChangeMonth(m)">{{m.toUpperCase()}}</button>
+        </mat-menu>
+    </ng-scrollbar>
+</button>

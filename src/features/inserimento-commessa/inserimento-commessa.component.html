@@ -1,0 +1,28 @@
+<form [formGroup]="form" *ngIf="form" (ngSubmit)="submit(form)">
+    <div id="containerWrapping">
+        <div id="container">
+            <div id="containerHeader">
+                <div class="addWrapper">
+                    <div id="containerHoursDay">
+                        <div class="text">Seleziona commessa</div>
+                        <div class="containerHours">
+                            <span>totale consuntivate: {{somma}} ore su <app-hours [hours]="8"></app-hours></span>
+                        </div>
+                    </div>
+                </div>
+                <app-times [routerLink]="'/commessa-details'"></app-times>
+            </div>
+            <div *ngIf="form?.controls">
+                <div *ngFor="let n of formControls; let i = index" class="mat-autocomplete">
+                    <span><label>{{descriptionCommessa.items[0].commesse[i].descriptionCommessa}}</label> -
+                        <label>{{n.key.toUpperCase()}}</label></span>
+                    <app-autocomplete [formControlNameInstance]=" getFormControlName(n.key)" [options]="optionCommessa"
+                        [FormInstance]="form"></app-autocomplete>
+                </div>
+            </div>
+        </div>
+        <div class="button">
+            <app-button [name]="'Conferma'" [type]="submit"></app-button>
+        </div>
+    </div>
+</form>

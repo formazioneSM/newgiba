@@ -1,0 +1,14 @@
+<div id="containerHome"><app-header id="header"></app-header>
+    <div id="containerNavigation">
+        <app-date-navigation class="dateNavigation" [month]="days" (changeMonth)="changeMonth($event)">
+        </app-date-navigation>
+        <app-button class="buttonTimesheet" [style]="{
+            'width' : '339px',
+            'color' : 'white',
+            'height' : '44px',
+            'marginBottom': '30px'}" [name]="'Invia timesheet'" [disabled]="'disabled'"></app-button>
+    </div>
+    <ng-scrollbar style="height: 100vh">
+        <app-days [dayInfo]="days"></app-days>
+    </ng-scrollbar>
+</div>
