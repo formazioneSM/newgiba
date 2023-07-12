@@ -1,17 +1,57 @@
-<mat-list role="list" id="containerList">
-
+<mat-list role=" list" id="containerList">
     <mat-list-item role="listitem" *ngFor="let list of days; 
+        
+        let i = index" class="list">
 
-    let index= index" class="list">
-
-        <div (click)="goToDetail(dayToTimestamp(list))">{{list.position}} {{list.day}}
-            <span><app-chevron class="chevron"></app-chevron></span>
+        <div class="detailList">
+            <ng-container>
+                <div (click)="goToDetail(dayToTimestamp(list))">{{list.position}}
+                    {{capitalizeFirstLetter(list.day)}}
+                    <app-anteprima-commessa
+                        [hours]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo.month, dayInfo.year) | async)?.hours?? 0"
+                        [commessa]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo.month, dayInfo.year) | async)?.quantity ?? 0">
+                    </app-anteprima-commessa>
+                </div>
+                <span class="chevron" *ngIf="!getSizeDesktop()"><app-chevron></app-chevron></span>
+            </ng-container>
+            <div id="containerOffice" *ngIf="getSizeDesktop()">
+                <div class="office">
+                    <div><app-in-out-office [title]="''" [FormInstance]="getFormGroup('mattina')"
+                            [formControlNameInstance]="['entrata','uscita']" [optionsIn]="optionsInMorning"
+                            [optionsOut]="optionsOutMorning"></app-in-out-office>
+                    </div>
+                    <div><app-in-out-office [title]="''" [FormInstance]="getFormGroup('pomeriggio')"
+                            [formControlNameInstance]="['entrata','uscita']" [title]="'Pomeriggio'"
+                            [optionsIn]="optionsInAfternoon" [optionsOut]="optionsOutAfternoon"></app-in-out-office>
+                    </div>
+                    <div><app-in-out-office [title]="''" [FormInstance]="getFormGroup('extraUfficio')"
+                            [formControlNameInstance]="['entrata','uscita']"
+                            [title]="'Extra ufficio'"></app-in-out-office>
+                    </div>
+                </div>
+                <div class="containerFormInput">
+                    <div class="containerInput" *ngIf="getSizeDesktop()">
+                        <div class=" autocomplete">
+                            <app-autocomplete [FormInstance]="form" [formControlNameInstance]="'assenza'"
+                                [placeholder]="'Motivazione'" [options]="motivation"></app-autocomplete>
+                        </div>
+                        <div class="inputForm">
+                            <app-input [FormInstance]="form" [formControlNameInstance]="'sede'"
+                                [placeholder]="'Sede di lavoro'"></app-input>
+                        </div>
+                        <div class="inputForm">
+                            <app-input [FormInstance]="form" [formGroup]="form" [formControlNameInstance]="'trasferta'"
+                                [placeholder]="'Trasferta'"></app-input>
+                        </div>
+                        <div class="checkboxRep">
+                            <app-checkbox [text]="'Reperibilità'" [FormInstance]="form"
+                                [formControlNameInstance]="'reperibilita'"></app-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <app-anteprima-commessa
-            [hours]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo.month, dayInfo.year) | async)?.hours?? 0"
-            [commessa]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo.month, dayInfo.year) | async)?.quantity ?? 0">
-        </app-anteprima-commessa>
-
     </mat-list-item>
-
 </mat-list>
+
+{{thisDay}}

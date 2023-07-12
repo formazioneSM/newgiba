@@ -1,6 +1,7 @@
+import { timestamp } from 'rxjs';
 import { SharedModule } from './../../shared/shared.module';
 import { Commessa, DayInfo } from '../../interfaces/interface.table';
-import { Component, computed, signal, OnInit, inject } from '@angular/core';
+import { Component, computed, signal, OnInit, inject, Input } from '@angular/core';
 import * as moment from 'moment';
 import { CommessaService } from 'src/services/commessa.service';
 
@@ -10,7 +11,7 @@ import { CommessaService } from 'src/services/commessa.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  @Input('timestamp') timestamp!: string;
   days!: DayInfo;
   commessaService = inject(CommessaService);
   day: any
@@ -22,14 +23,23 @@ export class HomeComponent implements OnInit {
     };
   }
 
+  getSizeDesktop() {
+    if (window.innerWidth < 768) {
+      return true
+    }
+    return false
+  }
+
   ngOnInit(): void {
     // this.commessaService.getCommesse().subscribe((c: Commessa) => {
     //   console.log(c)
     // })
+    console.log(moment())
     this.days = {
       totalDays: moment().daysInMonth(),
       month: moment().month(),
       year: moment().year(),
     }
   }
+
 }

@@ -1,12 +1,12 @@
 <div id="container">
     <div class="title">
-        {{title}}
+        <!-- {{title}} -->
     </div>
     <div class="containerInput" [formGroup]="FormInstance" *ngIf="FormInstance">
         <div><app-autocomplete [FormInstance]="FormInstance" [formControlNameInstance]=" formControlNameInstance[0]"
-                [value]="2" [placeholder]="'--.--'" [options]="optionsIN"></app-autocomplete>{{entrata}}
+                [value]="2" [placeholder]="'--.--'" [options]="optionsIn"></app-autocomplete>{{entrata}}
         </div>
         <div><app-autocomplete [FormInstance]="FormInstance" [formControlNameInstance]="formControlNameInstance[1]"
-                [placeholder]="'--.--'" [options]="optionsOUT"></app-autocomplete>{{uscita}}</div>
+                [placeholder]="'--.--'" [options]="optionsOut"></app-autocomplete>{{uscita}}</div>
     </div>
 </div>

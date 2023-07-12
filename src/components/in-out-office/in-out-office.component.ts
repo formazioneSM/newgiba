@@ -12,8 +12,10 @@ export class InOutOfficeComponent {
   @Input('uscita') uscita!: Day;
   @Input('FormInstance') FormInstance!: FormGroup;
   @Input('formControlNameInstance') formControlNameInstance!: string[]
+  @Input('optionsIn') optionsIn: string[] = []
+  @Input('optionsOut') optionsOut: string[] = []
 
-  optionsIN: string[] = ['8:30', '9:00', '9:30'];
-  optionsOUT: string[] = ['17:30', '18:00', '18:30'];
-
+  ngOnDestroy() {
+    this.FormInstance.reset();
+  }
 }

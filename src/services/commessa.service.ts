@@ -70,7 +70,6 @@ export class CommessaService implements OnInit {
   }
 
   getHoursByDay(timestamp: number) {
-    // return this._http.get(`http://127.0.0.1:8090/api/collections/Giba/records/${timestamp}`)
     return from(this.commesseMoccate).pipe(
       filter((t: any) => {
         return timestamp == t.timestamp

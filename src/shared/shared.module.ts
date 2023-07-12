@@ -29,8 +29,6 @@ import { HoursComponent } from 'src/components/ui-kit/hours/hours.component';
 import { InOutOfficeComponent } from 'src/components/in-out-office/in-out-office.component';
 import { AutocompleteComponent } from 'src/components/ui-kit/autocomplete/autocomplete.component';
 import { InputComponent } from 'src/components/ui-kit/input/input.component';
-import { HomeDesktopComponent } from 'src/features/home-desktop/home-desktop.component';
-import { DaysDesktopComponent } from 'src/components/days-desktop/days-desktop.component';
 @NgModule({
   declarations: [
     ButtonComponent,
@@ -49,7 +47,6 @@ import { DaysDesktopComponent } from 'src/components/days-desktop/days-desktop.c
     InOutOfficeComponent,
     AutocompleteComponent,
     InputComponent,
-    DaysDesktopComponent
   ],
 
   imports: [
@@ -103,7 +100,6 @@ import { DaysDesktopComponent } from 'src/components/days-desktop/days-desktop.c
     InOutOfficeComponent,
     AutocompleteComponent,
     InputComponent,
-    DaysDesktopComponent
   ]
 
 })

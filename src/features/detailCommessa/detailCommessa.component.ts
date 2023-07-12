@@ -1,4 +1,3 @@
-import { timestamp } from 'rxjs';
 import { Component, computed, signal, Input, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
@@ -13,7 +12,6 @@ CommessaService
 })
 export class DetailCommessaComponent implements OnInit {
   @Input('timestamp') timestamp!: string;
-
   commessaService = inject(CommessaService)
   _route = inject(ActivatedRoute);
   currentDay!: string;
@@ -51,7 +49,7 @@ export class DetailCommessaComponent implements OnInit {
   get reperibilita() {
     return this.form.get('reperibilita')
   }
-
+  click() { }
 
   getFormGroup(name: string) {
     return this.form.get(name) as FormGroup;
@@ -60,7 +58,6 @@ export class DetailCommessaComponent implements OnInit {
   submit(s: any) {
     console.log(s.value)
   }
-
 
   // reset() {
   //   return this.form.reset()

@@ -2,9 +2,9 @@
     [ngClass]="click ? 'chevronDown' : 'chevron'">{{selectedOption}} <span>
         <img class="chevron" src="../../../assets/images/chevron.svg" alt=""
             [ngClass]="click ? 'chevronDown' : ''"></span>
-    <ng-scrollbar style="height: auto">
-        <mat-menu #menu="matMenu" (closed)="closedMenu()">
+    <mat-menu #menu="matMenu" (closed)="closedMenu()">
+        <ng-scrollbar style="height: 30vh; width:12vw;">
             <button mat-menu-item *ngFor="let m of options" (click)="onChangeMonth(m)">{{m.toUpperCase()}}</button>
-        </mat-menu>
-    </ng-scrollbar>
+        </ng-scrollbar>
+    </mat-menu>
 </button>

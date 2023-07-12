@@ -8,7 +8,7 @@
             'height' : '44px',
             'marginBottom': '30px'}" [name]="'Invia timesheet'" [disabled]="'disabled'"></app-button>
     </div>
-    <ng-scrollbar style="height: 100vh">
+    <ng-scrollbar style="height: calc(100vh - 28vh)">
         <app-days [dayInfo]="days"></app-days>
     </ng-scrollbar>
 </div>
