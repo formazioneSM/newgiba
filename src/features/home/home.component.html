@@ -1,6 +1,6 @@
 <div id="containerHome"><app-header id="header"></app-header>
     <div id="containerNavigation">
-        <app-date-navigation class="dateNavigation" [month]="days" (changeMonth)="changeMonth($event)">
+        <app-date-navigation class="dateNavigation" [month]="day()" (changeMonth)="changeMonth($event)">
         </app-date-navigation>
         <app-button class="buttonTimesheet" [style]="{
             'width' : '339px',
@@ -9,6 +9,6 @@
             'marginBottom': '30px'}" [name]="'Invia timesheet'" [disabled]="'disabled'"></app-button>
     </div>
     <ng-scrollbar style="height: calc(100vh - 28vh)">
-        <app-days [dayInfo]="days"></app-days>
+        <app-days ></app-days>
     </ng-scrollbar>
 </div>

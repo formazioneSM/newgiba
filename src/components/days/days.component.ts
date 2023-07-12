@@ -1,11 +1,12 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DayInfo, Day, Commessa } from '../../interfaces/interface.table';
-import { Component, OnInit, Input, SimpleChanges, inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, inject, computed } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { timestamp } from 'rxjs';
 import { CommessaService } from 'src/services/commessa.service';
-import { IfStmt } from '@angular/compiler';
+import { dayToTimestamp, fromNumberToDaysArray, getFormGroup, isMobile } from 'src/shared/utils/functions';
+import { day } from 'src/services/days.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-days',
@@ -14,15 +15,32 @@ import { IfStmt } from '@angular/compiler';
 })
 
 export class DaysComponent implements OnInit {
-  @Input('dayInfo') dayInfo!: DayInfo;
+  /************************************ API COMPONENT ********************************************/
+  /**
+   * @description API COMPONENT - tutte le proprietà in ingresso e in uscita del component
+   */
+  // @Input('dayInfo') dayInfo!: DayInfo;
   @Input('day') day: any
   @Input('timestamp') timestamp!: string;
+/************************************ API COMPONENT ********************************************/
+
+
+/************************************ CLASS MEMBERS ********************************************/
+/**
+ * @description CLASS MEMBERS - Tutti i membri della classe
+ */
+  dayInfo = day;
+  transformations = {
+    dayToTimestamp,
+    getFormGroup,
+    isMobile
+  }
   commessaService = inject(CommessaService)
   _route = inject(ActivatedRoute);
   dati: any
   form!: FormGroup;
   private readonly _fb = inject(FormBuilder);
-  days: Day[] = [];
+  days = computed<Day[]>(() => fromNumberToDaysArray(this.dayInfo())) ;
   commesse: Commessa = {}
   router = inject(Router);
   currentDay: any
@@ -33,6 +51,14 @@ export class DaysComponent implements OnInit {
   optionsInAfternoon: string[] = ['14:00', '14:30', '15:00']
   optionsOutAfternoon: string[] = ['17:30', '18:00', '18:30']
   thisDay: any = moment();
+/************************************ CLASS MEMBERS ********************************************/
+
+
+
+/************************************ CLASS METHODS ********************************************/
+/**
+ * @description CLASS METHODS - Tutti i metodi della classe
+ */
   goToDetail(timestamp: number) {
     if (innerWidth < 768) {
       this.router.navigate(['/commessa-details', timestamp])
@@ -40,59 +66,17 @@ export class DaysComponent implements OnInit {
       this.router.navigate([''])
     }
   }
-
-  dayToTimestamp(day: Day) {
-    return moment().year(day.year ?? 0).month(moment().month(day.month ?? 0).format('MMMM')).date((day.position ?? 0)).valueOf();
+  submit(s: any) {
+    console.log(s.value)
   }
-
-  setDays() {
-    this.days = [...Array(this.dayInfo.totalDays).keys()].map((d: number) => ({
-      position: d + 1,
-      day: this.getCurrentDay((d + 1), this.dayInfo.month, this.dayInfo.year),
-      month: this.dayInfo.month,
-      year: this.dayInfo.year,
-      commessa: {}
-    })
-
-    );
-  }
-
-  getCurrentDay(d: number, m: number, y: number) {
-    return moment().year(y).month(moment().month(m).format('MMMM')).date(d).lang('it').format('dddd');
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.days = [...Array(changes['dayInfo'].currentValue.totalDays).keys()].map((d: number) => ({
-      position: d + 1,
-      day: this.getCurrentDay((d + 1), changes['dayInfo'].currentValue.month, changes['dayInfo'].currentValue.year),
-      month: changes['dayInfo'].currentValue.month,
-      year: changes['dayInfo'].currentValue.year,
-    }));
-
-  }
-  capitalizeFirstLetter(string: any) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  getSizeMobile() {
-    if (window.innerWidth < 768) {
-      return true
-    }
-    return false
-  }
-
-  getSizeDesktop() {
-    if (window.innerWidth > 768) {
-      return true
-    }
-    return false
-  }
+/************************************ CLASS METHODS ********************************************/
 
 
-  getFormGroup(name: string) {
-    return this.form.get(name) as FormGroup;
-  }
 
+/************************************ CLASS LIFECYCLE METHODS ********************************************/
+  /**
+ * @description CLASS LIFECYCLE METHODS - Tutti i metodi del ciclo di vita del componente
+ */
   constructor() {
     this.form = this._fb.group({
       'mattina': this._fb.group({
@@ -113,7 +97,6 @@ export class DaysComponent implements OnInit {
       'reperibilita': ['']
     })
   }
-
   get sede() {
     return this.form.get('sede ')
   }
@@ -123,44 +106,46 @@ export class DaysComponent implements OnInit {
   get reperibilita() {
     return this.form.get('reperibilita')
   }
-
-  click() { }
-
-  submit(s: any) {
-    console.log(s.value)
-  }
-
   ngOnInit(): void {
-
-    this.setDays();
-    this.commessaService.getCommessaByDay(5, 6, 2023).subscribe((c: Commessa) => {
-      console.log(this.commesse);
+    this.commessaService.getCommessaByDay(5, 7, 2023).subscribe((c: Commessa) => {
+      console.log('COMMESSA', c);
     });
-    this.commessaService.getDayByTimestamp(parseInt(this.thisDay)).subscribe((dato: Day) => {
-      this.form.patchValue({
-        'mattina': {
-          'entrata': dato.entrataMattina ?? '',
-          'uscita': dato.uscitaMattina ?? ''
-        },
-        'pomeriggio': {
-          'entrata': dato.entrataPomeriggio ?? '',
-          'uscita': dato.uscitaPomeriggio ?? '',
-        },
-        'extraUfficio': {
-          'entrata': dato.entrataExtraUfficio ?? '',
-          'uscita': dato.uscitaExtraUfficio ?? '',
-        },
-        'assenza': dato.assenza ?? '',
-        'sede': dato.sedeDiLavoro ?? '',
-        'trasferta': dato.trasferta ?? '',
-        'reperibilita': dato.reperibilita ?? ''
-      })
-      console.log(dato);
-    });
+    forkJoin(this.days().map((d:Day) => {
+      let time:number = dayToTimestamp(d);
+      return this.commessaService.getDayByTimestamp((time as number))
+    })).subscribe((res:any[]) => {
+      console.log('risposta esagerata', res)
+    }, error => {
+      console.error('ERRORE MORTALE', error)
+    })
+    // this.days().forEach((d:Day) => {
+    // })
+    // this.commessaService.getDayByTimestamp(parseInt(this.thisDay)).subscribe((dato: Day) => {
+      // this.form.patchValue({
+      //   'mattina': {
+      //     'entrata': dato.entrataMattina ?? '',
+      //     'uscita': dato.uscitaMattina ?? ''
+      //   },
+      //   'pomeriggio': {
+      //     'entrata': dato.entrataPomeriggio ?? '',
+      //     'uscita': dato.uscitaPomeriggio ?? '',
+      //   },
+      //   'extraUfficio': {
+      //     'entrata': dato.entrataExtraUfficio ?? '',
+      //     'uscita': dato.uscitaExtraUfficio ?? '',
+      //   },
+      //   'assenza': dato.assenza ?? '',
+      //   'sede': dato.sedeDiLavoro ?? '',
+      //   'trasferta': dato.trasferta ?? '',
+      //   'reperibilita': dato.reperibilita ?? ''
+      // })
+    // });
     this._route.params.subscribe((params: any,) => {
       this.currentDay = params.id + ' ' + params.day;
     })
-    console.log(this.thisDay)
   }
-
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.days = fromNumberToDaysArray(changes['dayInfo'].currentValue)
+  // }
+  /************************************ CLASS LIFECYCLE METHODS ********************************************/
 }

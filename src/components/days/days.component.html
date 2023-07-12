@@ -1,36 +1,36 @@
 <mat-list role=" list" id="containerList">
-    <mat-list-item role="listitem" *ngFor="let list of days; 
-        
+    <mat-list-item role="listitem" *ngFor="let list of days(); 
         let i = index" class="list">
-
         <div class="detailList">
             <ng-container>
-                <div (click)="goToDetail(dayToTimestamp(list))">{{list.position}}
-                    {{capitalizeFirstLetter(list.day)}}
+                <div (click)="goToDetail(transformations.dayToTimestamp(list))">{{list.position}}
+                    <span class="dayName">
+                        {{list.day}}
+                    </span>
                     <app-anteprima-commessa
-                        [hours]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo.month, dayInfo.year) | async)?.hours?? 0"
-                        [commessa]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo.month, dayInfo.year) | async)?.quantity ?? 0">
+                        [hours]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo().month, dayInfo().year) | async)?.hours?? 0"
+                        [commessa]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo().month, dayInfo().year) | async)?.quantity ?? 0">
                     </app-anteprima-commessa>
                 </div>
-                <span class="chevron" *ngIf="!getSizeDesktop()"><app-chevron></app-chevron></span>
+                <span class="chevron" *ngIf="transformations.isMobile()"><app-chevron></app-chevron></span>
             </ng-container>
-            <div id="containerOffice" *ngIf="getSizeDesktop()">
+            <div id="containerOffice" *ngIf="!transformations.isMobile()">
                 <div class="office">
-                    <div><app-in-out-office [title]="''" [FormInstance]="getFormGroup('mattina')"
+                    <div><app-in-out-office [title]="''" [FormInstance]="transformations.getFormGroup('mattina', form)"
                             [formControlNameInstance]="['entrata','uscita']" [optionsIn]="optionsInMorning"
                             [optionsOut]="optionsOutMorning"></app-in-out-office>
                     </div>
-                    <div><app-in-out-office [title]="''" [FormInstance]="getFormGroup('pomeriggio')"
+                    <div><app-in-out-office [title]="''" [FormInstance]="transformations.getFormGroup('pomeriggio', form)"
                             [formControlNameInstance]="['entrata','uscita']" [title]="'Pomeriggio'"
                             [optionsIn]="optionsInAfternoon" [optionsOut]="optionsOutAfternoon"></app-in-out-office>
                     </div>
-                    <div><app-in-out-office [title]="''" [FormInstance]="getFormGroup('extraUfficio')"
+                    <div><app-in-out-office [title]="''" [FormInstance]="transformations.getFormGroup('extraUfficio', form)"
                             [formControlNameInstance]="['entrata','uscita']"
                             [title]="'Extra ufficio'"></app-in-out-office>
                     </div>
                 </div>
                 <div class="containerFormInput">
-                    <div class="containerInput" *ngIf="getSizeDesktop()">
+                    <div class="containerInput" *ngIf="!transformations.isMobile()">
                         <div class=" autocomplete">
                             <app-autocomplete [FormInstance]="form" [formControlNameInstance]="'assenza'"
                                 [placeholder]="'Motivazione'" [options]="motivation"></app-autocomplete>

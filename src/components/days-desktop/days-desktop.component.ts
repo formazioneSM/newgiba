@@ -28,9 +28,7 @@ export class DaysDesktopComponent {
   // dayToTimestamp(day: Day) {
   //   return moment().year(day.year ?? 0).month(moment().month(day.month ?? 0).format('MMMM') + 1).date((day.position ?? 0) - 1).valueOf();
   // }
-  dayToTimestamp(day: Day) {
-    return moment().year(day.year ?? 0).month(moment().month(day.month ?? 0).format('MMMM')).date((day.position ?? 0)).valueOf();
-  }
+
 
   // setDays() {
   //   this.days = [...Array(this.dayInfo.totalDays).keys()].map((d: number) => ({
