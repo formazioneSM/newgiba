@@ -1,12 +1,12 @@
 <div id="container">
     <div class="title">
     </div>
-    <div class="containerInput" [formGroup]="form || FormInstance" *ngIf="form && FormInstance">
-        <div><app-autocomplete [FormInstance]="getFormGroup(form) || FormInstance"
+    <div class="containerInput" [formGroup]="form" *ngIf="form">
+        <div><app-autocomplete [FormInstance]="getFormGroup(form)"
                 [formControlNameInstance]=" formControlNameInstance[0]" [placeholder]="'--.--'"
                 [options]="optionsIn"></app-autocomplete>{{entrata}}
         </div>
-        <div><app-autocomplete [FormInstance]="getFormGroup(form) || FormInstance"
+        <div><app-autocomplete [FormInstance]="getFormGroup(form)"
                 [formControlNameInstance]="formControlNameInstance[1]" [placeholder]="'--.--'"
                 [options]="optionsOut"></app-autocomplete>{{uscita}}</div>
     </div>

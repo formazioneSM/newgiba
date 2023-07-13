@@ -18,7 +18,16 @@ export class DetailCommessaComponent implements OnInit {
   dati: any
   form!: FormGroup;
   private readonly _fb = inject(FormBuilder);
-
+day:Day = {
+    day: 0,
+    month: 0,
+    year: 0,
+    entrataMattina: 9,
+    uscitaMattina: 13,
+    entrataPomeriggio: 14,
+    uscitaPomeriggio: 18,
+    sedeDiLavoro: 'SmartWorking',
+};
   constructor() {
     this.form = this._fb.group({
       'mattina': this._fb.group({
@@ -80,6 +89,7 @@ export class DetailCommessaComponent implements OnInit {
 
   ngOnInit(): void {
     this.commessaService.getDayByTimestamp(parseInt(this.timestamp)).subscribe((dato: Day) => {
+      this.day = dato;
       this.form.patchValue({
         'mattina': {
           'entrata': dato.entrataMattina ?? '',
