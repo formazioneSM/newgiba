@@ -10,6 +10,7 @@ import { Observable, map, startWith } from 'rxjs';
 export class AutocompleteComponent {
   @Input('title') title: string = '';
   @Input('value') value: any;
+  @Input('defaultValue') defaultValue: any;
   @Input('placeholder') placeholder: string = '';
   @Input('options') options: string[] = ['8:30', '9:00', '9:30'];
   @Input('FormInstance') FormInstance!: FormGroup;

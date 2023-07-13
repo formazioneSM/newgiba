@@ -91,8 +91,7 @@ export class CommessaService implements OnInit {
     return from(this.days).pipe(
       filter((t: any) => {
         return (t.day == day) && (t.month == month) && (t.year == year);
-      })
-      );
+      }));
   }
 
   postCommessa(id: any, body: any) {

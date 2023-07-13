@@ -1,11 +1,11 @@
 <mat-list role=" list" id="containerList">
-    <mat-list-item role="listitem" *ngFor="let list of days(); 
+    <mat-list-item role="listitem" *ngFor="let list of dayss()(); 
         let i = index" class="list">
         <div class="detailList">
             <ng-container>
                 <div (click)="goToDetail(transformations.dayToTimestamp(list))">{{list.position}}
                     <span class="dayName">
-                        {{list.day}}
+                        {{list.day ?? list.position}}
                     </span>
                     <app-anteprima-commessa
                         [hours]="(commessaService.getCommessaByDay(list.position?? 0 ,dayInfo().month, dayInfo().year) | async)?.hours?? 0"
@@ -16,15 +16,21 @@
             </ng-container>
             <div id="containerOffice" *ngIf="!transformations.isMobile()">
                 <div class="office">
-                    <div><app-in-out-office [title]="''" [FormInstance]="transformations.getFormGroup('mattina', form)"
+                    <div><app-in-out-office [title]="''" 
+                        [day]="list"
+                        [formGroupInstanceName]="'mattina'"
                             [formControlNameInstance]="['entrata','uscita']" [optionsIn]="optionsInMorning"
                             [optionsOut]="optionsOutMorning"></app-in-out-office>
                     </div>
-                    <div><app-in-out-office [title]="''" [FormInstance]="transformations.getFormGroup('pomeriggio', form)"
+                    <div><app-in-out-office [title]="''" 
+                        [day]="list"
+                        [formGroupInstanceName]="'pomeriggio'"
                             [formControlNameInstance]="['entrata','uscita']" [title]="'Pomeriggio'"
                             [optionsIn]="optionsInAfternoon" [optionsOut]="optionsOutAfternoon"></app-in-out-office>
                     </div>
-                    <div><app-in-out-office [title]="''" [FormInstance]="transformations.getFormGroup('extraUfficio', form)"
+                    <div><app-in-out-office [title]="''" 
+                        [day]="list"
+                        [formGroupInstanceName]="'extraUfficio'"
                             [formControlNameInstance]="['entrata','uscita']"
                             [title]="'Extra ufficio'"></app-in-out-office>
                     </div>
