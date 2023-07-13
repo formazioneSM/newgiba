@@ -1,6 +1,10 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Day } from './../../interfaces/interface.table';
 import { Component, Input, inject } from '@angular/core';
+import {
+  getFormGroup,
+  isMobile,
+} from 'src/shared/utils/functions';
 @Component({
   selector: 'app-in-out-office',
   templateUrl: './in-out-office.component.html',
@@ -16,28 +20,30 @@ export class InOutOfficeComponent {
   @Input('formGroupInstanceName') formGroupInstanceName!: string;
   @Input('optionsIn') optionsIn: string[] = [];
   @Input('optionsOut') optionsOut: string[] = [];
-
+  @Input('FormInstance') FormInstance: any
   form!: FormGroup;
   private readonly _fb = inject(FormBuilder);
-
-  getProperlyValue(name:string, value:any){
-    if(name == 'entrata' && this.formGroupInstanceName == 'mattina'){
+  transformations = {
+    isMobile
+  }
+  getProperlyValue(name: string, value: any) {
+    if (name == 'entrata' && this.formGroupInstanceName == 'mattina') {
       return value.entrataMattina
-    }else if(name == 'entrata' && this.formGroupInstanceName == 'pomeriggio' ){
+    } else if (name == 'entrata' && this.formGroupInstanceName == 'pomeriggio') {
       return value.entrataPomeriggio
-    }else if(name == 'uscita' && this.formGroupInstanceName == 'mattina'){
+    } else if (name == 'uscita' && this.formGroupInstanceName == 'mattina') {
       return value.uscitaMattina
-    }else if(name == 'uscita' && this.formGroupInstanceName == 'pomeriggio'){
+    } else if (name == 'uscita' && this.formGroupInstanceName == 'pomeriggio') {
       return value.uscitaPomeriggio
-    }else if(name == 'entrata' && this.formGroupInstanceName == 'extraUfficio'){
+    } else if (name == 'entrata' && this.formGroupInstanceName == 'extraUfficio') {
       return value.entrataExtraUfficio
-    }else if(name == 'uscita' && this.formGroupInstanceName == 'extraUfficio'){
+    } else if (name == 'uscita' && this.formGroupInstanceName == 'extraUfficio') {
       return value.uscitaExtraUfficio
     }
   }
-getFormGroup(form:FormGroup){
-  return form.get(this.formGroupInstanceName) as FormGroup;
-}
+  getFormGroup(form: FormGroup) {
+    return form.get(this.formGroupInstanceName) as FormGroup;
+  }
   ngOnInit() {
     let controls = this.formControlNameInstance.reduce(
       (acc: any, curr: any) => ({ ...acc, [curr]: [this.getProperlyValue(curr, this.day), Validators.required] }),
@@ -47,7 +53,9 @@ getFormGroup(form:FormGroup){
       [this.formGroupInstanceName]: this._fb.group(controls)
     });
   }
+
+
   ngOnDestroy() {
-    this.form.reset();
+    // this.form.reset();
   }
 }
