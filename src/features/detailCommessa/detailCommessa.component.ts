@@ -59,10 +59,6 @@ export class DetailCommessaComponent implements OnInit {
     console.log(s.value)
   }
 
-  // reset() {
-  //   return this.form.reset()
-  // }
-
   titleInput: any = [
     { title: 'Mattina' },
     { title: 'Pomeriggio' },
@@ -109,6 +105,4 @@ export class DetailCommessaComponent implements OnInit {
       this.currentDay = params.id + ' ' + params.day;
     })
   }
-
-
 }
