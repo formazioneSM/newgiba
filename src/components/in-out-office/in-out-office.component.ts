@@ -20,6 +20,8 @@ export class InOutOfficeComponent {
   @Input('formGroupInstanceName') formGroupInstanceName!: string;
   @Input('optionsIn') optionsIn: string[] = [];
   @Input('optionsOut') optionsOut: string[] = [];
+  @Input('defaultValueIn') defaultValueIn: any
+  @Input('defaultValueOut') defaultValueOut: any
   @Input('FormInstance') FormInstance: any
   form!: FormGroup;
   private readonly _fb = inject(FormBuilder);

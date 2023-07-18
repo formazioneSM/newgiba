@@ -8,23 +8,23 @@ body {
 
 #header {
     position: fixed;
-    overflow: none;
+    overflow: hidden;
 
     .dateNavigation {
         position: fixed;
-        overflow: none;
+        overflow: hidden;
 
     }
 
     .buttonTimesheet {
         position: fixed;
-        overflow: none;
+        overflow: hidden;
     }
 }
 
 
 #containerNavigation {
-    overflow: none;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;

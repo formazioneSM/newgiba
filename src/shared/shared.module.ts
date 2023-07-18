@@ -29,6 +29,7 @@ import { HoursComponent } from 'src/components/ui-kit/hours/hours.component';
 import { InOutOfficeComponent } from 'src/components/in-out-office/in-out-office.component';
 import { AutocompleteComponent } from 'src/components/ui-kit/autocomplete/autocomplete.component';
 import { InputComponent } from 'src/components/ui-kit/input/input.component';
+import { TitleComponent } from 'src/components/title/title.component';
 @NgModule({
   declarations: [
     ButtonComponent,
@@ -47,6 +48,8 @@ import { InputComponent } from 'src/components/ui-kit/input/input.component';
     InOutOfficeComponent,
     AutocompleteComponent,
     InputComponent,
+    TitleComponent
+
   ],
 
   imports: [
@@ -100,6 +103,7 @@ import { InputComponent } from 'src/components/ui-kit/input/input.component';
     InOutOfficeComponent,
     AutocompleteComponent,
     InputComponent,
+    TitleComponent
   ]
 
 })

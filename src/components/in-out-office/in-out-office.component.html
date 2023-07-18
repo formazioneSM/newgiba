@@ -3,11 +3,12 @@
     </div>
     <div class="containerInput" [formGroup]="form" *ngIf="form">
         <div><app-autocomplete [FormInstance]="getFormGroup(form)"
-                [formControlNameInstance]=" formControlNameInstance[0]" [placeholder]="'--.--'"
-                [options]="optionsIn"></app-autocomplete>{{entrata}}
+                [formControlNameInstance]=" formControlNameInstance[0]" [options]="optionsIn"
+                [defaultValue]="defaultValueIn">
+            </app-autocomplete>
         </div>
         <div><app-autocomplete [FormInstance]="getFormGroup(form)"
-                [formControlNameInstance]="formControlNameInstance[1]" [placeholder]="'--.--'"
-                [options]="optionsOut"></app-autocomplete>{{uscita}}</div>
+                [formControlNameInstance]="formControlNameInstance[1]" [defaultValue]="defaultValueOut"
+                [options]="optionsOut"></app-autocomplete></div>
     </div>
 </div>

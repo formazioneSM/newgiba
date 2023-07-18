@@ -34,35 +34,35 @@
     font-size: 16px !important;
 }
 
-@media screen and (min-width: 768px) {
-    #menu {
-        font-size: 20px;
+// @media screen and (min-width: 768px) {
+//     #menu {
+//         font-size: 20px;
 
-        .chevron {
-            transform: rotate(270deg);
-            padding-left: auto;
-            height: 12px;
-        }
+//         .chevron {
+//             transform: rotate(270deg);
+//             padding-left: auto;
+//             height: 12px;
+//         }
 
-        .chevronDown {
-            transform: rotate(0deg);
-        }
+//         .chevronDown {
+//             transform: rotate(0deg);
+//         }
 
-        .mat-mdc-menu-content {
-            background-color: white;
-        }
+//         .mat-mdc-menu-content {
+//             background-color: white;
+//         }
 
-        ::ng-deep .mdc-button__label {
-            width: 151px !important;
-        }
-    }
+//         ::ng-deep .mdc-button__label {
+//             width: 151px !important;
+//         }
+//     }
 
 
-    ::ng-deep .mat-mdc-menu-content.mdc-list {
-        height: 22vh !important;
-    }
+//     ::ng-deep .mat-mdc-menu-content.mdc-list {
+//         height: 22vh !important;
+//     }
 
-    ::ng-deep .mdc-list-item__primary-text {
-        font-size: 14px !important;
-    }
-}
+//     ::ng-deep .mdc-list-item__primary-text {
+//         font-size: 14px !important;
+//     }
+// }

@@ -1,6 +1,7 @@
 <form class="example-form" [formGroup]="FormInstance">
     <div class="textInput">{{titleInput}}</div>
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Ex. Pizza" [placeholder]="placeholder" [formControlName]="formControlNameInstance">
+        <input matInput placeholder="Ex. Pizza" [placeholder]="placeholder" [formControlName]="formControlNameInstance"
+            [value]="defaultValue">
     </mat-form-field>
 </form>

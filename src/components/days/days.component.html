@@ -1,9 +1,9 @@
 <mat-list role=" list" id="containerList">
-    <mat-list-item role="listitem" *ngFor="let list of dayss()(); 
+    <mat-list-item role="listitem" [style.background]="transformations.checkDay(list, redDays)" *ngFor="let list of dayss()();  
         let i = index" class="list">
         <div class="detailList">
             <ng-container>
-                <div (click)="goToDetail(transformations.dayToTimestamp(list))">{{list.position}}
+                <div class="position" (click)="goToDetail(transformations.dayToTimestamp(list))">{{list.position}}
                     <span class="dayName">
                         {{list.day ?? list.position}}
                     </span>
@@ -16,38 +16,34 @@
             </ng-container>
             <div id="containerOffice" *ngIf="!transformations.isMobile()">
                 <div class="office">
-                    <div><app-in-out-office [title]="''" 
-                        [day]="list"
-                        [formGroupInstanceName]="'mattina'"
+                    <div><app-in-out-office [title]="''" [day]="list " [formGroupInstanceName]="'mattina'"
                             [formControlNameInstance]="['entrata','uscita']" [optionsIn]="optionsInMorning"
-                            [optionsOut]="optionsOutMorning"></app-in-out-office>
+                            [optionsOut]="optionsOutMorning" [defaultValueIn]="default" [defaultValueIn]="9"
+                            [defaultValueOut]="13"></app-in-out-office>
                     </div>
-                    <div><app-in-out-office [title]="''" 
-                        [day]="list"
-                        [formGroupInstanceName]="'pomeriggio'"
+                    <div><app-in-out-office [title]="''" [day]="list" [formGroupInstanceName]="'pomeriggio'"
                             [formControlNameInstance]="['entrata','uscita']" [title]="'Pomeriggio'"
-                            [optionsIn]="optionsInAfternoon" [optionsOut]="optionsOutAfternoon"></app-in-out-office>
+                            [optionsIn]="optionsInAfternoon" [optionsOut]="optionsOutAfternoon" [defaultValueIn]="14"
+                            [defaultValueOut]="18"></app-in-out-office>
                     </div>
-                    <div><app-in-out-office [title]="''" 
-                        [day]="list"
-                        [formGroupInstanceName]="'extraUfficio'"
+                    <div><app-in-out-office [title]="''" [day]="list" [formGroupInstanceName]="'extraUfficio'"
                             [formControlNameInstance]="['entrata','uscita']"
                             [title]="'Extra ufficio'"></app-in-out-office>
                     </div>
                 </div>
                 <div class="containerFormInput">
                     <div class="containerInput" *ngIf="!transformations.isMobile()">
-                        <div class=" autocomplete">
-                            <app-autocomplete [FormInstance]="form" [formControlNameInstance]="'assenza'"
-                                [placeholder]="'Motivazione'" [options]="motivation"></app-autocomplete>
+                        <div class=" inputForm">
+                            <app-input [FormInstance]="form" [formControlNameInstance]="'assenza'"
+                                [placeholder]="'Motivazione'" [defaultValue]="''"></app-input>
                         </div>
                         <div class="inputForm">
-                            <app-input [FormInstance]="form" [formControlNameInstance]="'sede'"
-                                [placeholder]="'Sede di lavoro'"></app-input>
+                            <app-input [FormInstance]="form" [formControlNameInstance]="'sedeDiLavoro'"
+                                [placeholder]="'Sede di lavoro'" [defaultValue]="'SmartWorking'"></app-input>
                         </div>
                         <div class="inputForm">
                             <app-input [FormInstance]="form" [formGroup]="form" [formControlNameInstance]="'trasferta'"
-                                [placeholder]="'Trasferta'"></app-input>
+                                [placeholder]="'Trasferta'" [defaultValue]="''"></app-input>
                         </div>
                         <div class="checkboxRep">
                             <app-checkbox [text]="'Reperibilità'" [FormInstance]="form"
@@ -59,5 +55,3 @@
         </div>
     </mat-list-item>
 </mat-list>
-
-{{thisDay}}

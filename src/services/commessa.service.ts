@@ -62,7 +62,7 @@ export class CommessaService implements OnInit {
       filter((c: Commessa) => {
         return c.day == day && c.month == (month + 1) && c.year == year;
       }),
-     
+
     )
   }
 
@@ -83,7 +83,7 @@ export class CommessaService implements OnInit {
     return this._http.post(`http://127.0.0.1:8090/api/collections/Giba/records/${timestamp}`, body)
   }
 
-  getDayByTimestamp(timestamp: number):Observable<Day> {
+  getDayByTimestamp(timestamp: number): Observable<Day> {
     let date = moment(timestamp);
     let day = date.date();
     let month = date.month();

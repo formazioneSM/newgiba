@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  Day, Commessa } from '../../interfaces/interface.table';
+import { Day, Commessa } from '../../interfaces/interface.table';
 import {
   Component,
   OnInit,
@@ -19,9 +19,10 @@ import {
   fromNumberToDaysArray,
   getFormGroup,
   isMobile,
+  checkDay
 } from 'src/shared/utils/functions';
 import { day } from 'src/services/days.service';
-import {  merge, switchMap, toArray } from 'rxjs';
+import { merge, switchMap, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-days',
@@ -47,10 +48,10 @@ export class DaysComponent implements OnInit {
     dayToTimestamp,
     getFormGroup,
     isMobile,
+    checkDay
   };
   commessaService = inject(CommessaService);
   _route = inject(ActivatedRoute);
-  dati: any;
   form!: FormGroup;
   private readonly _fb = inject(FormBuilder);
   days = computed<Day[]>(() => fromNumberToDaysArray(this.dayInfo()));
@@ -59,12 +60,25 @@ export class DaysComponent implements OnInit {
   currentDay: any;
   dayss = signal(this.days);
   isDesktop: boolean = false;
+  currentYear = moment().year();
   motivation: any = ['Malattia', 'Permesso'];
+  default = 0;
   optionsInMorning: string[] = ['8:30', '9:00', '9:30'];
   optionsOutMorning: string[] = ['13:00', '13:30'];
   optionsInAfternoon: string[] = ['14:00', '14:30', '15:00'];
   optionsOutAfternoon: string[] = ['17:30', '18:00', '18:30'];
-  thisDay: any = moment();
+  redDays = [
+    { day: 1, month: 0 },
+    { day: 6, month: 0 },
+    { day: 25, month: 3 },
+    { day: 1, month: 4 },
+    { day: 2, month: 5 },
+    { day: 15, month: 7 },
+    { day: 1, month: 10 },
+    { day: 8, month: 11 },
+    { day: 25, month: 11 },
+    { day: 26, month: 11 }
+  ]
   /************************************ CLASS MEMBERS ********************************************/
 
   /************************************ CLASS METHODS ********************************************/
@@ -78,6 +92,7 @@ export class DaysComponent implements OnInit {
       this.router.navigate(['']);
     }
   }
+
   submit(s: any) {
     console.log(s.value);
   }
@@ -103,13 +118,13 @@ export class DaysComponent implements OnInit {
         uscita: [''],
       }),
       assenza: [''],
-      sede: ['', Validators.required],
+      sedeDiLavoro: ['', Validators.required],
       trasferta: [''],
       reperibilita: [''],
     });
   }
-  get sede() {
-    return this.form.get('sede ');
+  get sedeDiLavoro() {
+    return this.form.get('sedeDiLavoro');
   }
   get trasferta() {
     return this.form.get('trasferta');
@@ -121,7 +136,7 @@ export class DaysComponent implements OnInit {
     this.commessaService
       .getCommessaByDay(5, 7, 2023)
       .subscribe((c: Commessa) => {
-        console.log('COMMESSA', c);
+        // console.log('COMMESSA', c);
       });
     merge(
       this.days().map((d: Day) => {
@@ -129,25 +144,25 @@ export class DaysComponent implements OnInit {
         return this.commessaService.getDayByTimestamp(time as number);
       })
     ).pipe(
-        switchMap((e) => e),
-        toArray()
-      ).subscribe(
-        (res: Day[]) => {
-          console.log('risposta esagerata', res);
-          this.dayss.mutate((days:Signal<Day[]>) => {
-            let indexInDays = days().findIndex((d:Day) => res.find((dd) => dd.day == d.position && dd.month == d.month && dd.year == d.year) );
-            let dayToReplace = res.find((d:Day) => days().find((dd) => dd.position == d.day && dd.month == d.month && dd.year == d.year) );
-            if(indexInDays !== -1 && dayToReplace){
-              dayToReplace['day'] = days()[indexInDays].day;
-              dayToReplace['position'] = days()[indexInDays].position;
-              days()[indexInDays] = dayToReplace;
-            }
-          })
-        },
-        (error) => {
-          console.error('ERRORE MORTALE', error);
-        }
-      );
+      switchMap((e) => e),
+      toArray()
+    ).subscribe(
+      (res: Day[]) => {
+        console.log('risposta esagerata', res);
+        this.dayss.mutate((days: Signal<Day[]>) => {
+          let indexInDays = days().findIndex((d: Day) => res.find((dd) => dd.day == d.position && dd.month == d.month && dd.year == d.year));
+          let dayToReplace = res.find((d: Day) => days().find((dd) => dd.position == d.day && dd.month == d.month && dd.year == d.year));
+          if (indexInDays !== -1 && dayToReplace) {
+            dayToReplace['day'] = days()[indexInDays].day;
+            dayToReplace['position'] = days()[indexInDays].position;
+            days()[indexInDays] = dayToReplace;
+          }
+        })
+      },
+      (error) => {
+        console.error('ERRORE MORTALE', error);
+      }
+    );
     this._route.params.subscribe((params: any) => {
       this.currentDay = params.id + ' ' + params.day;
     });
