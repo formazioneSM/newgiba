@@ -3,6 +3,7 @@ import { CommessaService } from 'src/services/commessa.service';
 import { Component, Input, inject } from '@angular/core';
 import { SharedModule } from 'src/shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inserimento-commessa',
@@ -14,6 +15,7 @@ export class InserimentoCommessaComponent {
   private _commesseService = inject(CommessaService);
   form!: FormGroup;
   formControls: any[] = [];
+  router = inject(Router)
   private _fb = inject(FormBuilder);
   optionCommessa = ['1', '2', '3', '4', '5', '6', '7', '8']
   descriptionCommessa: any;
@@ -35,6 +37,10 @@ export class InserimentoCommessaComponent {
   getFormControlName(name: string) {
     return name.replace(' ', '').toLowerCase();
   }
+
+  // comeBack() {
+  //   this.router.navigate('/commessa-detail', time)
+  // }
 
   ngOnInit() {
     this._commesseService.getCommesse().subscribe((commesse: any) => {
