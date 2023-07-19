@@ -2,8 +2,7 @@
     <div class="textTitle">{{title}}</div>
     <mat-form-field class="example-full-width">
         <input type="text" aria-label="Number" [value]="defaultValue" [placeholder]="placeholder" matInput
-            [matAutocomplete]="auto" [formControl]="getFormControl()"
-            [formControlName]="formControlNameInstance">{{defaultValue}}
+            [matAutocomplete]="auto" [formControl]="getFormControl()" [formControlName]="formControlNameInstance">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{option}}

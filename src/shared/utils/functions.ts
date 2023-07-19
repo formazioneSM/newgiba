@@ -1,10 +1,22 @@
 import { Day, DayInfo } from "src/interfaces/interface.table";
 import * as moment from "moment";
 import { FormGroup } from "@angular/forms";
+
 export const dayToTimestamp = (day: Day) => {
   return moment().year(day.year ?? 0).month(moment().month(day.month ?? 0).format('MMMM')).date((day.position ?? 0)).valueOf();
 }
-
+const redDays = [
+  { day: 1, month: 0 },
+  { day: 6, month: 0 },
+  { day: 25, month: 3 },
+  { day: 1, month: 4 },
+  { day: 2, month: 5 },
+  { day: 15, month: 7 },
+  { day: 1, month: 10 },
+  { day: 8, month: 11 },
+  { day: 25, month: 11 },
+  { day: 26, month: 11 }
+]
 export const getCurrentDay = (d: number, m: number, y: number) => {
   return moment().year(y).month(moment().month(m).format('MMMM')).date(d).lang('it').format('dddd');
 }
@@ -15,7 +27,12 @@ export const fromNumberToDaysArray = (day: DayInfo) => {
     day: getCurrentDay((d + 1), day.month, day.year),
     month: day.month,
     year: day.year,
-    commessa: {}
+    commessa: {},
+    ...checkDefaultValue(d, day, redDays) ? { entrataMattina: 9 } : {},
+    ...checkDefaultValue(d, day, redDays) ? { uscitaMattina: 13 } : {},
+    ...checkDefaultValue(d, day, redDays) ? { entrataPomeriggio: 14 } : {},
+    ...checkDefaultValue(d, day, redDays) ? { uscitaPomeriggio: 18 } : {},
+    sedeDiLavoro: 'SmartWorking',
   }));
 }
 export const getFormGroup = (name: string, formInstance: FormGroup) => {
@@ -27,6 +44,10 @@ export const isMobile = () => {
 
 export const checkDay = (day: any, redDays: any) => {
   return (day.month == (checkEasterDayAndMonth(day.year)[0] - 1) && day.position == checkEasterDayAndMonth(day.year)[1]) || (day.month == (checkEasterDayAndMonth(day.year)[0] - 1) && day.position == checkEasterDayAndMonth(day.year)[1] + 1) ? '#EBF5FF' : redDays.find((d: any) => (d.month == day.month && d.day == day.position)) ? '#EBF5FF' : (day.day == 'sabato' || day.day == 'domenica') ? '#EFFDE6' : 'white';
+}
+
+const checkDefaultValue = (d: any, day: any, redDays: any) => {
+  return redDays.find((e: any) => { return e.day == d + 1 && e.month == day.month }) != undefined || getCurrentDay((d + 1), day.month, day.year) == 'sabato' || getCurrentDay((d + 1), day.month, day.year) == 'domenica' ? false : true;
 }
 
 export const checkEasterDayAndMonth = (year: number) => {

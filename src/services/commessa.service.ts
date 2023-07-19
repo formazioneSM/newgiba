@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Commessa, Day } from './../interfaces/interface.table';
 import { Injectable, inject, OnInit } from '@angular/core';
 import { Observable, from, delay, timestamp } from 'rxjs';
-import { filter, first, take, tap, toArray } from 'rxjs/operators';
+import { filter, first, map, pluck, take, tap, toArray } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Injectable({
@@ -16,8 +16,8 @@ export class CommessaService implements OnInit {
     day: 4,
     month: 6,
     year: 2023,
-    entrataMattina: 9,
-    uscitaMattina: 13,
+    entrataMattina: 9.12,
+    uscitaMattina: 13.35,
     entrataPomeriggio: 14,
     uscitaPomeriggio: 18,
     sedeDiLavoro: 'SmartWorking',
@@ -58,7 +58,7 @@ export class CommessaService implements OnInit {
 
 
   getCommessaByDay(day: number, month: number, year: number): Observable<Commessa> {
-    return from(this.commesse).pipe(
+    return from(this.getCommesse()).pipe(
       filter((c: Commessa) => {
         return c.day == day && c.month == (month + 1) && c.year == year;
       }),
@@ -66,6 +66,9 @@ export class CommessaService implements OnInit {
     )
   }
 
+  getData() {
+    return this._http.get(`http://127.0.0.1:8090/api/collections/Commesse_Giba/records`);
+  }
   getCommesse() {
     return this._http.get(`http://127.0.0.1:8090/api/collections/Giba/records`);
   }
@@ -88,10 +91,13 @@ export class CommessaService implements OnInit {
     let day = date.date();
     let month = date.month();
     let year = date.year();
-    return from(this.days).pipe(
+    return this.getData().pipe(
+      pluck('items'),
+      map((e: any) => e[0]),
+      pluck('data'),
       filter((t: any) => {
         return (t.day == day) && (t.month == month) && (t.year == year);
-      }));
+      }))
   }
 
   postCommessa(id: any, body: any) {
@@ -103,5 +109,6 @@ export class CommessaService implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 }
